@@ -1,0 +1,475 @@
+/* --- Global Reset --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('/sunflowers.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  min-height: 100vh;
+}
+
+button, .submit-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+}
+
+button:hover, .submit-btn:hover {
+  background-color: #0056b3;
+
+}
+
+/* --- Header --- */
+header {
+  background-color: #282c34;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+header nav a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* --- Blog Post --- */
+.post {
+  background: white;
+  margin: 2rem auto;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  width: 85%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.post h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.post p {
+  margin-bottom: 0.8rem;
+}
+
+/* --- Comment Box --- */
+.comment-box {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+}
+
+.comment-box textarea {
+  width: 100%;
+  height: 70px;
+  padding: 0.7rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ccc;
+  resize: none;
+  color: #222;
+}
+
+.comments {
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.8rem;
+  border-radius: 8px;
+}
+
+.comments p {
+  color: #2c2c2c; /* darker gray for better contrast */
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.comment-box h4 {
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.comment-box button {
+  background-color: #282c34;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-box button:hover {
+  background-color: #3c4450;
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #282c34;
+  color: white;
+  margin-top: 3rem;
+}
+
+/* Center the entire blog layout */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center the main content area */
+main {
+  width: 80%;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.like-btn {
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.3s ease;
+
+}
+
+.like-btn:hover {
+  background-color: #e91e63;
+}
+
+.info-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  margin-top: 2rem;
+  text-align: center;
+  line-height: 1.6;
+  color: #222;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* --- Improved Comment Input Styles --- */
+
+.comment-input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #222;
+}
+
+.comment-textarea {
+  width: 100%;
+  height: 80px;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #222;
+}
+
+/* Message text for "No comments" */
+.no-comments {
+  color: #111;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+/* Each comment bubble */
+.single-comment {
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  border-left: 4px solid #ff4081;
+  color: #222;
+}
+body.light {
+  background-image: url('/sunflowers.jpg');
+  color: #333;
+}
+
+body.dark {
+  background: #1a1a1a;
+  color: white;
+}
+
+.comment-box.dark,
+.comments.dark {
+  background: rgba(40, 40, 40, 0.9);
+  color: white;
+}
+/* Dark mode post styling */
+body.dark .post {
+  background: #2b2b2b;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+/* Dark mode comment box + comments */
+body.dark .comment-box,
+body.dark .comments {
+  background: rgba(40,40,40,0.9);
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+/* Dark mode input fields */
+body.dark input,
+body.dark textarea {
+  background: #3a3a3a;
+  border: 1px solid #666;
+  color: #fff;
+}
+/* Fix faded post title in dark mode */
+body.dark .post h2 {
+  color: #ffffff !important;
+}
+
+/* Fix faded "Comments" title */
+body.dark h4,
+body.dark .comments h4,
+body.dark .comment-box h4 {
+  color: #ffffff !important;
+}
+/* Dark mode form inputs */
+body.dark .comment-box input,
+body.dark .comment-box textarea {
+  background: #2b2b2b;
+  color: white;
+  border: 1px solid #555;
+}
+
+body.dark .comment-box input::placeholder,
+body.dark .comment-box textarea::placeholder {
+  color: #bbb;
+}
+
+/* Dark mode comment container */
+body.dark .comments {
+  background: rgba(60, 60, 60, 0.9);
+  color: white;
+}
+
+/* Dark mode post title */
+body.dark .post h2 {
+  color: #fff;
+}
+
+/* Dark mode Comments heading text */
+body.dark .comments h4,
+body.dark .comment-box h4 {
+  color: #fff;
+}
+/* Dark mode comment styling */
+/* 🔥 Fix dark mode comments on HOME page */
+body.dark .comment-box {
+  background: rgba(40, 40, 40, 0.95) !important;
+  color: white !important;
+}
+
+body.dark .comment-box input,
+body.dark .comment-box textarea {
+  background: rgba(60, 60, 60, 0.95) !important;
+  border: 1px solid #777 !important;
+  color: white !important;
+}
+
+body.dark .comments {
+  background: rgba(40, 40, 40, 0.95) !important;
+  color: white !important;
+}
+
+body.dark .comments p {
+  background: rgba(60, 60, 60, 0.95) !important;
+  color: white !important;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+/* Blog Post Card Styling */
+.post-card {
+  background: rgba(0, 0, 0, 0.65); /* Transparent black background */
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 10px;
+  color: white;
+  backdrop-filter: blur(4px);
+}
+
+/* Post Title */
+.post-card h2 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+/* Read More link */
+.post-card a {
+  color: #4db8ff;
+  font-weight: bold;
+}
+
+.post-card a:hover {
+  text-decoration: underline;
+}
+/* ===== Single Post Page Styling ===== */
+
+.single-post-container {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 25px;
+  border-radius: 12px;
+  color: white;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.2);
+  margin-top: 25px;
+}
+
+/* Back Link */
+.back-link {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #4db8ff;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* Single Post Title */
+.post-title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Single Post Body Text */
+.post-body {
+  font-size: 1.15rem;
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #e9e9e9;
+}
+
+/* Author Info */
+.post-author {
+  margin-bottom: 25px;
+  font-style: italic;
+  color: #c8e4ff;
+}
+
+/* Comment Container */
+.comment-box {
+  background: rgba(255,255,255,0.85);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ===== Comment Form ===== */
+
+.comment-form {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  color: #222;
+}
+
+.comment-form textarea {
+  resize: none;
+  height: 80px;
+}
+
+.comment-form button {
+  width: 100%;
+  padding: 12px;
+  background: #4db8ff;
+  color: black;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 1.1rem;
+}
+
+.comment-form button:hover {
+  background: #82cfff;
+}
+
+/* ===== Dark Mode for Single Post Page ===== */
+
+body.dark .single-post-container {
+  background: rgba(40,40,40,0.9);
+  color: white;
+  border: 1px solid #555;
+}
+
+body.dark .comment-box {
+  background: rgba(60,60,60,0.95);
+  color: white;
+}
+
+body.dark .comment-form {
+  background: rgba(30,30,30,0.95);
+}
+
+body.dark .comment-form input,
+body.dark .comment-form textarea {
+  background: rgba(60,60,60,0.95);
+  color: white;
+  border: 1px solid #777;
+}
