@@ -14,6 +14,7 @@ import IndividualPostPage from "./pages/IndividualPostPage"; // API-based single
 import CreatePostPage from "./pages/CreatePostPage"; // keep this (assignment didn't require removal)
 
 function App() {
+  
   return (
     <ThemeProvider>
       <Router>
