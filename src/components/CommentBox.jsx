@@ -1,43 +1,69 @@
+// src/components/CommentBox.jsx
 import { useState } from "react";
+import { useAuth } from "../Context/AuthContext.jsx";
 
-function CommentBox({ onAddComment }) {
-  const [name, setName] = useState("");
+export default function CommentBox() {
+  const { isAuthenticated, user } = useAuth();
   const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
 
-  const handleSubmit = (e) => {
+  // If user is NOT logged in, show message only
+  if (!isAuthenticated) {
+    return (
+      <div className="comment-locked">
+        <p>
+          You must be <strong>logged in</strong> to leave a comment.
+        </p>
+      </div>
+    );
+  }
+
+  function handleSubmit(e) {
     e.preventDefault();
-    if (!name.trim() || !comment.trim()) return;
+    if (!comment.trim()) return;
 
-    // Send comment to parent component
-    onAddComment(name, comment);
+    const newComment = {
+      id: Date.now(),
+      author: user?.username || "Anonymous",
+      text: comment.trim(),
+    };
 
-    // Clear input fields
-    setName("");
+    setComments((prev) => [newComment, ...prev]);
     setComment("");
-  };
+  }
 
   return (
     <div className="comment-box">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Your name..."
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="comment-input"
-        />
+      <h3>Comments</h3>
 
+      <form onSubmit={handleSubmit} className="comment-form">
+        {/* REMOVE the name input entirely */}
+        
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Leave a comment..."
-          className="comment-textarea"
-        ></textarea>
+          placeholder="Write your comment..."
+          rows={3}
+          required
+        />
 
-        <button type="submit" className="submit-btn">Submit</button>
+        <button type="submit" className="btn-primary btn-sm">
+          Post Comment
+        </button>
       </form>
+
+      {comments.length === 0 ? (
+        <p className="comment-empty">No comments yet. Be the first to share!</p>
+      ) : (
+        <ul className="comment-list">
+          {comments.map((c) => (
+            <li key={c.id} className="comment-item">
+              <p className="comment-text">{c.text}</p>
+              <p className="comment-meta">— {c.author}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
-
-export default CommentBox;

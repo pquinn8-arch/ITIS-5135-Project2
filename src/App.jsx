@@ -1,3 +1,4 @@
+// src/App.jsx
 import { ThemeProvider } from "./Context/ThemeContext.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -5,47 +6,52 @@ import "./App.css";
 // Components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Pages
-import BlogPostsPage from "./pages/BlogPostsPage"; // now API-based list page
+import BlogPostsPage from "./pages/BlogPostsPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
-import IndividualPostPage from "./pages/IndividualPostPage"; // API-based single post page
-import CreatePostPage from "./pages/CreatePostPage"; // keep this (assignment didn't require removal)
+import IndividualPostPage from "./pages/IndividualPostPage";
+import CreatePostPage from "./pages/CreatePostPage";
+import LoginPage from "./pages/LoginPage";
+import Homepage from "./pages/Homepage";
+
+// Auth
+import { AuthProvider } from "./Context/AuthContext.jsx";
 
 function App() {
-  
   return (
     <ThemeProvider>
-      <Router>
-        <div className="App">
-          <Header />
+      <AuthProvider>
+        <Router>
+          <div className="App">
+            <Header />
 
-          <main style={styles.main}>
-            <Routes>
+            <main style={styles.main}>
+              <Routes>
+                {/* Public routes */}
+                <Route path="/" element={<Homepage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
 
-              {/* ✅ Home -> Redirect to blog posts */}
-              <Route path="/" element={<BlogPostsPage />} />
+                {/* Protected routes */}
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/posts" element={<BlogPostsPage />} />
+                  <Route path="/posts/:postId" element={<IndividualPostPage />} />
+                  <Route path="/new-post" element={<CreatePostPage />} />
+                </Route>
 
-              {/* ✅ Blog Posts List */}
-              <Route path="/posts" element={<BlogPostsPage />} />
+                {/* Fallback for unknown paths */}
+                <Route path="*" element={<Homepage />} />
+              </Routes>
+            </main>
 
-              {/* ✅ Individual Post Page */}
-              <Route path="/posts/:postId" element={<IndividualPostPage />} />
-
-              {/* ✅ Create Post Page (your existing feature) */}
-              <Route path="/new-post" element={<CreatePostPage />} />
-
-              {/* ✅ About & Contact Pages */}
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-
-            </Routes>
-          </main>
-
-          <Footer />
-        </div>
-      </Router>
+            <Footer />
+          </div>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
@@ -53,7 +59,7 @@ function App() {
 const styles = {
   main: {
     width: "90%",
-    maxWidth: "800px",
+    maxWidth: "900px",
     margin: "2rem auto",
     textAlign: "left",
     fontFamily: "Arial, sans-serif",
